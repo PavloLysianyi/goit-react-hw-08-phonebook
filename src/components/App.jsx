@@ -1,16 +1,14 @@
 import { Route, Routes } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import { refreshThunk } from '../processes/operation';
 import { useEffect } from 'react';
-import { refreshThunk } from '../processes/thunk';
-import ContactList from './ContactList';
-import ContactForm from './ContactForm';
-import Filter from './Filter';
-import { Layout } from '../pages/Layout';
-import { Home } from '../pages/Home';
-import { Login } from '../pages/Login';
-import { Register } from '../pages/Register';
-import { PublicRoute } from '../routes/PublicRoute';
-import { PrivateRoute } from '../routes/PrivateRoute';
+import ContactBook from './ContactBook';
+import { Layout } from './Layout';
+import { Home } from 'pages/Home';
+import { Login } from 'pages/Login';
+import { Register } from 'pages/Register';
+import { PublicRoute } from 'routes/PublicRoute';
+import { PrivateRoute } from 'routes/PrivateRoute';
 
 export const App = () => {
   const dispatch = useDispatch();
@@ -27,11 +25,7 @@ export const App = () => {
           path="contacts"
           element={
             <PrivateRoute>
-              <h1 className="heading">Phonebook</h1>
-              <ContactForm />
-              <h2 className="sub-heading">Contacts</h2>
-              <Filter />
-              <ContactList />
+              <ContactBook />
             </PrivateRoute>
           }
         />

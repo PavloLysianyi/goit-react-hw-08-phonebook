@@ -1,58 +1,45 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteContact } from '../processes/operations';
 import {
-  selectContacts,
-  selectFilter,
-  selectLoading,
-  selectError,
-} from '../processes/selectors';
+  ContactInfo,
+  ContactItem,
+  ContactList,
+  DeleteContactBtn,
+  FilterErrorMessage,
+} from '../style/ContactList.style';
+import { selectFilters } from '../processes/filterslice';
+import { selectContacts } from '../processes/contactsSlice';
+import { deleteContact } from '../api/api';
 
-const ContactList = () => {
-  const dispatch = useDispatch();
+const Contacts = () => {
   const contacts = useSelector(selectContacts);
-  const filter = useSelector(selectFilter);
-  const loading = useSelector(selectLoading);
-  const error = useSelector(selectError);
+  const filter = useSelector(selectFilters);
+  const dispatch = useDispatch();
 
-  const filteredContacts = contacts.filter(
-    contact =>
-      (contact.name &&
-        contact.name.toLowerCase().includes(filter.toLowerCase())) ||
-      (contact.number &&
-        contact.number.toLowerCase().includes(filter.toLowerCase()))
+  const filteredContacts = contacts.filter(contact =>
+    contact.name.toLowerCase().includes(filter.toLowerCase())
   );
 
-  const handleDeleteContact = async id => {
-    try {
-      dispatch(deleteContact(id));
-    } catch (error) {
-      console.error('Error deleting contact:', error.message);
-    }
-  };
-
   return (
-    <div>
-      {loading && <p>Loading...</p>}
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      <ul className="list">
-        {filteredContacts.map(contact => (
-          <li key={contact.id} className="list-item">
-            <span className="contact-info">
-              {contact.name} - {contact.number}
-            </span>
-            <button
-              type="button"
-              onClick={() => handleDeleteContact(contact.id)}
-              className="delete-button"
-            >
-              Видалити
-            </button>
-          </li>
-        ))}
-      </ul>
-    </div>
+    <ContactList>
+      {filteredContacts.length !== 0 ? (
+        filteredContacts.map(item => (
+          <ContactItem key={item.id}>
+            <ContactInfo>
+              <span>
+                {item.name}: {item.number}
+              </span>
+            </ContactInfo>
+            <DeleteContactBtn type="button" onClick={() => dispatch(deleteContact(item.id))}>
+              Delete
+            </DeleteContactBtn>
+          </ContactItem>
+        ))
+      ) : (
+        <FilterErrorMessage>Could not find contacts with this name!</FilterErrorMessage>
+      )}
+    </ContactList>
   );
 };
 
-export default ContactList;
+export default Contacts;

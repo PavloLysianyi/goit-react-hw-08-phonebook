@@ -1,6 +1,6 @@
 import { createSlice, isAnyOf } from '@reduxjs/toolkit';
 import { addContact, deleteContact, fetchContacts } from '../api/api';
-import { logoutThunk } from './thunk';
+import { logoutThunk } from './operation';
 
 const initialState = {
   contacts: [],
@@ -27,38 +27,32 @@ const slice = createSlice({
         state.contacts = [];
       })
       .addMatcher(
-        isAnyOf(
-          fetchContacts.pending,
-          addContact.pending,
-          deleteContact.pending
-        ),
+        isAnyOf(fetchContacts.pending, addContact.pending, deleteContact.pending),
         state => {
           state.isLoading = true;
           state.error = null;
         }
       )
       .addMatcher(
-        isAnyOf(
-          fetchContacts.fulfilled,
-          addContact.fulfilled,
-          deleteContact.fulfilled
-        ),
+        isAnyOf(fetchContacts.fulfilled, addContact.fulfilled, deleteContact.fulfilled),
         state => {
           state.isLoading = false;
         }
       )
       .addMatcher(
-        isAnyOf(
-          fetchContacts.rejected,
-          addContact.rejected,
-          deleteContact.rejected
-        ),
+        isAnyOf(fetchContacts.rejected, addContact.rejected, deleteContact.rejected),
         (state, { payload }) => {
           state.isLoading = false;
           state.error = payload;
         }
       );
   },
+  selectors: {
+    selectContacts: state => state.contacts,
+    selectIsLoading: state => state.isLoading,
+    selectError: state => state.error,
+  },
 });
 
-export const contactsSlice = slice.reducer;
+export const contactsReducer = slice.reducer;
+export const { selectContacts, selectIsLoading, selectError } = slice.selectors;

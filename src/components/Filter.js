@@ -1,27 +1,21 @@
-import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectFilter } from '../processes/selectors';
-import { updateFilter } from '../processes/updatefilter';
+import { FilterInput, FilterLabel, FilterWrpper } from '../style/Filter.style';
+import { changeFilter, selectFilters } from '../processes/filterslice';
 
-const Filter = () => {
+export const Filter = () => {
   const dispatch = useDispatch();
-  const filter = useSelector(selectFilter);
-
-  const handleFilterChange = event => {
-    dispatch(updateFilter(event.target.value));
-  };
+  const filter = useSelector(selectFilters);
 
   return (
-    <div>
-      Пошук контактів за ім'ям або номером телефону
-      <input
-        type="text"
-        value={filter}
-        onChange={handleFilterChange}
-        className="input"
-      />
-    </div>
+    <FilterWrpper>
+      <FilterLabel>
+        Find contacts by name
+        <FilterInput
+          type="text"
+          value={filter}
+          onChange={e => dispatch(changeFilter(e.target.value))}
+        />
+      </FilterLabel>
+    </FilterWrpper>
   );
 };
-
-export default Filter;
