@@ -8,15 +8,15 @@ export const UserNavigationLink = () => {
   const dispatch = useDispatch();
 
   return (
-    <div className="flex-none">
-      <ul className="menu menu-horizontal px-1">
+    <div>
+      <ul>
         <li>
           <NavLink to="/contacts">Contacts</NavLink>
         </li>
         <li>
-          <details className="px-4">
+          <details>
             <summary>{name}</summary>
-            <ul className="p-2 -translate-x-2/4  bg-indigo-400 rounded-t-none">
+            <ul>
               <li>
                 <p>{email}</p>
               </li>

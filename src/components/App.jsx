@@ -1,4 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { refreshThunk } from '../processes/thunk';
 import ContactList from './ContactList';
 import ContactForm from './ContactForm';
 import Filter from './Filter';
@@ -8,9 +11,6 @@ import { Login } from '../pages/Login';
 import { Register } from '../pages/Register';
 import { PublicRoute } from '../routes/PublicRoute';
 import { PrivateRoute } from '../routes/PrivateRoute';
-import { useDispatch } from 'react-redux';
-import { refreshThunk } from '../processes/thunk';
-import { useEffect } from 'react';
 
 export const App = () => {
   const dispatch = useDispatch();

@@ -2,8 +2,8 @@ import { NavLink } from 'react-router-dom';
 
 export const NavigationLink = () => {
   return (
-    <div className="flex-none">
-      <ul className="menu menu-horizontal px-1">
+    <div>
+      <ul>
         <li>
           <NavLink to="/login">Login</NavLink>
         </li>

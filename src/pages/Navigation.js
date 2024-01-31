@@ -9,11 +9,9 @@ export const Navigation = () => {
   console.log(isLoggedIn);
 
   return (
-    <div className="navbar bg-indigo-500 text-white font-bold">
-      <div className="flex-1">
-        <Link to="/" className="btn btn-ghost text-xl">
-          PHONEBOOK
-        </Link>
+    <div>
+      <div>
+        <Link to="/">PHONEBOOK</Link>
       </div>
       {isLoggedIn ? <UserNavigationLink /> : <NavigationLink />}
     </div>
