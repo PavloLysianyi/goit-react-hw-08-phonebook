@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Form, FormButton, Input, InputLabel } from '../style/ContactForm.style';
 import { useForm } from 'react-hook-form';
-import { findContact } from 'processes/findContact';
+import { findContact } from 'helper/findContact';
 import { selectContacts } from '../processes/contactsSlice';
 import { addContact } from '../api/api';
 
