@@ -1,12 +1,12 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteContact } from './operations';
+import { deleteContact } from '../processes/operations';
 import {
   selectContacts,
   selectFilter,
   selectLoading,
   selectError,
-} from './selectors';
+} from '../processes/selectors';
 
 const ContactList = () => {
   const dispatch = useDispatch();

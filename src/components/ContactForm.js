@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { addContact } from './operations';
-import { addNewContact } from '../api';
+import { addContact } from '../processes/operations';
 
 const ContactForm = () => {
   const dispatch = useDispatch();
@@ -21,7 +20,7 @@ const ContactForm = () => {
     }
 
     try {
-      const newContact = await addNewContact({
+      const newContact = await addContact({
         name,
         number,
       });

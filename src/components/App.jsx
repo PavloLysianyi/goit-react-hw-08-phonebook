@@ -1,26 +1,57 @@
-import React, { useEffect } from 'react';
+import { Route, Routes } from 'react-router-dom';
+import ContactList from './ContactList';
 import ContactForm from './ContactForm';
 import Filter from './Filter';
-import ContactList from './ContactList';
+import { Layout } from '../pages/Layout';
+import { Home } from '../pages/Home';
+import { Login } from '../pages/Login';
+import { Register } from '../pages/Register';
+import { PublicRoute } from '../routes/PublicRoute';
+import { PrivateRoute } from '../routes/PrivateRoute';
 import { useDispatch } from 'react-redux';
-import { fetchContacts } from './operations';
+import { refreshThunk } from '../processes/thunk';
+import { useEffect } from 'react';
 
-const App = () => {
+export const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchContacts());
+    dispatch(refreshThunk());
   }, [dispatch]);
 
   return (
-    <div className="container">
-      <h1 className="heading">Phonebook</h1>
-      <ContactForm />
-      <h2 className="sub-heading">Contacts</h2>
-      <Filter />
-      <ContactList />
-    </div>
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route index element={<Home />} />
+        <Route
+          path="contacts"
+          element={
+            <PrivateRoute>
+              <h1 className="heading">Phonebook</h1>
+              <ContactForm />
+              <h2 className="sub-heading">Contacts</h2>
+              <Filter />
+              <ContactList />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="login"
+          element={
+            <PublicRoute>
+              <Login />
+            </PublicRoute>
+          }
+        />
+        <Route
+          path="register"
+          element={
+            <PublicRoute>
+              <Register />
+            </PublicRoute>
+          }
+        />
+      </Route>
+    </Routes>
   );
 };
-
-export default App;
